@@ -1,0 +1,103 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Fire hotspot counts by state, coloured by average intensity",
+  "width": "container",
+  "height": 300,
+  "data": {
+    "url": "data/fire_state_totals.csv"
+  },
+  "mark": {
+    "type": "bar",
+    "cornerRadiusEnd": 3
+  },
+  "encoding": {
+    "y": {
+      "field": "state_name",
+      "type": "nominal",
+      "sort": {
+        "field": "count",
+        "order": "descending"
+      },
+      "axis": {
+        "title": null
+      },
+      "scale": {
+        "paddingInner": 0.5
+      }
+    },
+    "x": {
+      "field": "count",
+      "type": "quantitative",
+      "axis": {
+        "title": "Number of detections",
+        "values": [
+          0,
+          20000,
+          40000,
+          60000,
+          80000,
+          100000
+        ],
+        "labelExpr": "datum.value === 0 ? '0' : datum.value / 1000 + 'k'"
+      }
+    },
+    "color": {
+      "field": "mean_frp",
+      "type": "quantitative",
+      "scale": {
+        "type": "linear",
+        "domain": [
+          50,
+          150
+        ],
+        "range": [
+          "#FEF0D9",
+          "#FC8D59",
+          "#D7301F",
+          "#7F0000"
+        ]
+      },
+      "legend": {
+        "title": "Avg intensity (MW)",
+        "values": [
+          50,
+          75,
+          100,
+          125,
+          150
+        ],
+        "format": ".0f"
+      }
+    },
+    "tooltip": [
+      {
+        "field": "state_name",
+        "type": "nominal",
+        "title": "State"
+      },
+      {
+        "field": "count",
+        "type": "quantitative",
+        "title": "Total detections",
+        "format": ","
+      },
+      {
+        "field": "mean_frp",
+        "type": "quantitative",
+        "title": "Avg intensity (MW)",
+        "format": ".1f"
+      }
+    ]
+  },
+  "config": {
+    "font": "Inter, sans-serif",
+    "axis":   { "labelFont": "Inter, sans-serif", "titleFont": "Inter, sans-serif", "labelColor": "#65605a", "titleColor": "#3a3530" },
+    "legend": { "labelFont": "Inter, sans-serif", "titleFont": "Inter, sans-serif" },
+    "header": { "labelFont": "Inter, sans-serif" },
+    "view":   { "stroke": null }
+  },
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  }
+}

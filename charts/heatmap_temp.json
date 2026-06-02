@@ -1,0 +1,165 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Temperature anomaly heatmap by state and season",
+  "width": "container",
+  "height": 300,
+  "data": {
+    "url": "data/climate_clean.csv"
+  },
+  "layer": [
+    {
+      "mark": "rect",
+      "encoding": {
+        "x": {
+          "field": "season",
+          "type": "ordinal",
+          "sort": [
+            "Winter 2019",
+            "Spring 2019",
+            "Summer 2020",
+            "Autumn 2020"
+          ],
+          "axis": {
+            "title": null,
+            "labelAngle": 0,
+            "labelExpr": "datum.value === 'Winter 2019' ? 'Win 19' : datum.value === 'Spring 2019' ? 'Spr 19' : datum.value === 'Summer 2020' ? 'Sum 20' : 'Aut 20'"
+          }
+        },
+        "y": {
+          "field": "state",
+          "type": "nominal",
+          "axis": {
+            "title": null,
+            "labelExpr": "datum.value === 'New South Wales' ? 'NSW' : datum.value === 'Northern Territory' ? 'NT' : datum.value === 'Queensland' ? 'QLD' : datum.value === 'South Australia' ? 'SA' : datum.value === 'Tasmania' ? 'TAS' : datum.value === 'Victoria' ? 'VIC' : datum.value === 'Western Australia' ? 'WA' : datum.value"
+          }
+        },
+        "color": {
+          "field": "mean_temp_anomaly",
+          "type": "quantitative",
+          "scale": {
+            "scheme": "redblue",
+            "reverse": true,
+            "domain": [
+              -1,
+              3
+            ]
+          },
+          "legend": {
+            "title": "Temp anomaly (\u00b0C)"
+          }
+        },
+        "tooltip": [
+          {
+            "field": "state",
+            "type": "nominal",
+            "title": "State"
+          },
+          {
+            "field": "season",
+            "type": "ordinal",
+            "title": "Season"
+          },
+          {
+            "field": "mean_temp_anomaly",
+            "type": "quantitative",
+            "title": "Mean temp anomaly (\u00b0C)",
+            "format": ".2f"
+          },
+          {
+            "field": "max_temp_anomaly",
+            "type": "quantitative",
+            "title": "Max temp anomaly (\u00b0C)",
+            "format": ".2f"
+          },
+          {
+            "field": "min_temp_anomaly",
+            "type": "quantitative",
+            "title": "Min temp anomaly (\u00b0C)",
+            "format": ".2f"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "fontSize": 10
+      },
+      "encoding": {
+        "x": {
+          "field": "season",
+          "type": "ordinal",
+          "sort": [
+            "Winter 2019",
+            "Spring 2019",
+            "Summer 2020",
+            "Autumn 2020"
+          ]
+        },
+        "y": {
+          "field": "state",
+          "type": "nominal"
+        },
+        "text": {
+          "field": "mean_temp_anomaly",
+          "type": "quantitative",
+          "format": ".1f"
+        },
+        "color": {
+          "condition": {
+            "test": "datum.mean_temp_anomaly > 2",
+            "value": "white"
+          },
+          "value": "#333"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "season": "Summer 2020",
+            "label": "2nd warmest summer"
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "y": -12,
+        "fontSize": 11,
+        "fontStyle": "italic",
+        "color": "#D7301F",
+        "fontWeight": "bold",
+        "baseline": "bottom"
+      },
+      "encoding": {
+        "x": {
+          "field": "season",
+          "type": "ordinal",
+          "sort": [
+            "Winter 2019",
+            "Spring 2019",
+            "Summer 2020",
+            "Autumn 2020"
+          ]
+        },
+        "text": {
+          "field": "label",
+          "type": "nominal"
+        }
+      }
+    }
+  ],
+  "padding": {"top": 24, "bottom": 5, "left": 5, "right": 5},
+  "config": {
+    "font": "Inter, sans-serif",
+    "axis":   { "labelFont": "Inter, sans-serif", "titleFont": "Inter, sans-serif", "labelColor": "#65605a", "titleColor": "#3a3530" },
+    "legend": { "labelFont": "Inter, sans-serif", "titleFont": "Inter, sans-serif" },
+    "header": { "labelFont": "Inter, sans-serif" },
+    "view":   { "stroke": null }
+  },
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Heatmap of fire hotspot counts by month and state",
+  "width": "container",
+  "height": 300,
+  "data": {
+    "url": "data/fire_monthly_state.csv"
+  },
+  "mark": "rect",
+  "encoding": {
+    "x": {
+      "field": "month",
+      "type": "ordinal",
+      "sort": [
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+        "Jan",
+        "Feb",
+        "Mar"
+      ],
+      "axis": {
+        "title": null,
+        "labelAngle": 0
+      }
+    },
+    "y": {
+      "field": "state_name",
+      "type": "nominal",
+      "axis": {
+        "title": null,
+        "labelExpr": "datum.value === 'New South Wales' ? 'NSW' : datum.value === 'Northern Territory' ? 'NT' : datum.value === 'Queensland' ? 'QLD' : datum.value === 'South Australia' ? 'SA' : datum.value === 'Tasmania' ? 'TAS' : datum.value === 'Victoria' ? 'VIC' : datum.value === 'Western Australia' ? 'WA' : datum.value"
+      }
+    },
+    "color": {
+      "field": "count",
+      "type": "quantitative",
+      "scale": {
+        "scheme": "reds",
+        "domainMin": 0
+      },
+      "legend": {
+        "title": "Hotspot count"
+      }
+    },
+    "tooltip": [
+      {
+        "field": "month",
+        "type": "ordinal",
+        "title": "Month"
+      },
+      {
+        "field": "state_name",
+        "type": "nominal",
+        "title": "State"
+      },
+      {
+        "field": "count",
+        "type": "quantitative",
+        "title": "Hotspot count"
+      },
+      {
+        "field": "mean_frp",
+        "type": "quantitative",
+        "title": "Avg intensity (MW)",
+        "format": ".1f"
+      }
+    ]
+  },
+  "config": {
+    "font": "Inter, sans-serif",
+    "axis":   { "labelFont": "Inter, sans-serif", "titleFont": "Inter, sans-serif", "labelColor": "#65605a", "titleColor": "#3a3530" },
+    "legend": { "labelFont": "Inter, sans-serif", "titleFont": "Inter, sans-serif" },
+    "header": { "labelFont": "Inter, sans-serif" },
+    "view":   { "stroke": null }
+  },
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  }
+}

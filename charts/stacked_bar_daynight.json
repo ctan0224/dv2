@@ -1,0 +1,89 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "100% stacked bar: proportion of day vs night fire detections per month",
+  "width": "container",
+  "height": 300,
+  "data": {
+    "url": "data/fire_daynight_monthly.csv"
+  },
+  "transform": [
+    {
+      "calculate": "datum.daynight === 'D' ? 'Daytime' : 'Nighttime'",
+      "as": "time_label"
+    }
+  ],
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "month",
+      "type": "ordinal",
+      "sort": null,
+      "axis": {
+        "title": "Month",
+        "labelAngle": -45
+      }
+    },
+    "y": {
+      "field": "count",
+      "type": "quantitative",
+      "stack": "normalize",
+      "axis": {
+        "title": "Proportion",
+        "format": "%"
+      }
+    },
+    "color": {
+      "field": "daynight",
+      "type": "nominal",
+      "scale": {
+        "domain": [
+          "D",
+          "N"
+        ],
+        "range": [
+          "#fdba74",
+          "#2166AC"
+        ]
+      },
+      "legend": {
+        "title": "Time",
+        "labelExpr": "datum.value === 'D' ? 'Daytime' : 'Nighttime'"
+      }
+    },
+    "tooltip": [
+      {
+        "field": "month",
+        "type": "ordinal",
+        "title": "Month"
+      },
+      {
+        "field": "time_label",
+        "type": "nominal",
+        "title": "Time"
+      },
+      {
+        "field": "count",
+        "type": "quantitative",
+        "title": "Detections",
+        "format": ","
+      },
+      {
+        "field": "proportion",
+        "type": "quantitative",
+        "title": "Share",
+        "format": ".1%"
+      }
+    ]
+  },
+  "config": {
+    "font": "Inter, sans-serif",
+    "axis":   { "labelFont": "Inter, sans-serif", "titleFont": "Inter, sans-serif", "labelColor": "#65605a", "titleColor": "#3a3530" },
+    "legend": { "labelFont": "Inter, sans-serif", "titleFont": "Inter, sans-serif" },
+    "header": { "labelFont": "Inter, sans-serif" },
+    "view":   { "stroke": null }
+  },
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  }
+}

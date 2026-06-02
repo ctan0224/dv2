@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Australia's Black Summer 2019-2020</title>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/pure-min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+</head>
+<body>
+
+  <!-- Section 1: Title -->
+  <section id="title-section">
+    <h1>Australia's Black Summer</h1>
+    <p class="subtitle">2019-2020 Australian bushfire season</p>
+  </section>
+
+  <!-- Section 2: Where it burned -->
+  <section id="where-section">
+    <h2>Where it burned</h2>
+    <p>
+      The 2019-2020 Black Summer was unlike anything Australia had seen before. More than <strong>18 million hectares burned</strong>, <strong>over 3,000 buildings were destroyed</strong>, <strong>34 people lost their lives</strong>, and satellites recorded <strong>282,000 fire hotspots</strong> across the country. The fires stretched across nearly every corner of the continent&mdash;but it was the eastern seaboard, tracing a deep red arc from Queensland down through New South Wales and into Victoria, where the land burned longest and the fires burned hardest.
+    </p>
+
+    <div class="chart-full">
+      <div class="chart-card" style="width:100%">
+        <div id="chart-map-hotspots"></div>
+        <p class="caption">Sample of 8,000 hotspots. Colour shows fire intensity (MW).</p>
+      </div>
+    </div>
+
+    <p class="chart-group-top">New South Wales was the hardest hit, with <strong>nearly 100,000 satellite detections</strong>, <strong>2,176 homes lost</strong> and <strong>25 lives taken</strong>. But the fires told different stories in different places&mdash;Western Australia's blazes were fewer yet far more intense, while the Northern Territory lost the most land of all, with <strong>6.8 million hectares burned</strong> across its vast interior.</p>
+
+    <div class="two-col chart-group-top">
+      <div class="chart-card">
+        <div id="chart-bar-state"></div>
+        <p class="caption">Fire hotspots per state, coloured by average intensity.</p>
+      </div>
+      <div class="chart-card">
+        <div id="chart-map-area"></div>
+        <p class="caption">Area burned per state.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3: When it burned -->
+  <section id="when-section">
+    <h2>When it burned</h2>
+    <p>
+      What began as an unusually early outbreak in <strong>June 2019</strong> gradually grew into one of Australia's most devastating fire seasons. Activity built steadily through winter and spring, then exploded in December and January as a record heatwave gripped the continent. The crisis reached its peak in <strong>early January 2020</strong>, with detections and intensity climbing to their highest levels. Throughout the season, fires burned across both day and night, though daytime hours consistently saw the greatest number of hotspots.
+    </p>
+
+    <div class="chart-full">
+      <div class="chart-card" style="width:100%">
+        <div id="chart-dual-weekly"></div>
+        <p class="caption">Weekly detections and average intensity, Jun 2019 - Apr 2020. Bars = detection count (left axis); Line = fire intensity in MW (right axis)</p>
+      </div>
+    </div>
+
+    <div class="two-col chart-group-top">
+      <div class="chart-card">
+        <div id="chart-heatmap-monthly"></div>
+        <p class="caption">Monthly hotspots by state. Deeper red = more fire.</p>
+      </div>
+      <div class="chart-card">
+        <div id="chart-stacked-daynight"></div>
+        <p class="caption">Day vs night detections per month.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 4: Why it was severe -->
+  <section id="why-section">
+    <h2>Why it was so severe</h2>
+    <p>
+      Before a single spark was struck, the land was already in crisis. Months of relentless heat had baked the soil dry, and the rains that should have come in spring never arrived&mdash;in some states, <strong>more than 65% below what the season normally brings</strong>. By the time summer peaked, Australia was recording its <strong>second warmest on record</strong>, with temperatures running <strong>over 2&deg;C above the long-term average</strong> across much of the east coast.  This deadly combination of prolonged heat and drought left vegetation across the continent primed to burn.
+    </p>
+
+    <div class="two-col chart-group-top">
+      <div class="chart-card">
+        <div id="chart-heatmap-temp"></div>
+        <p class="caption">Temperature anomaly (°C above 1961-1990 average) by state and season.</p>
+      </div>
+      <div class="chart-card">
+        <div id="chart-bar-rainfall"></div>
+        <p class="caption">Rainfall departure from 1961-1990 average for the selected season.</p>
+      </div>
+    </div>
+
+    <div class="chart-full chart-group-top">
+      <div class="chart-card" style="width:100%">
+        <div id="chart-dumbbell"></div>
+        <div class="dumbbell-legend">
+          <span><span class="dot dot-blue"></span> Min temp</span>
+          <span><span class="dot dot-red"></span> Max temp</span>
+        </div>
+        <p class="caption">Minimum and maximum temperature anomaly per state, relative to 1961-1990 average.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 5: The climate-fire link -->
+  <section id="link-section">
+    <h2>Hotter, drier, more fire</h2>
+    <p>
+      The numbers tell a simple story: where it was hotter and drier, it burned more. NSW sits alone at the top of the scatter&mdash;<strong>nearly 100,000 hotspots</strong>, a rainfall deficit that dwarfed most other states, and temperatures running <strong>almost 2&deg;C above normal</strong> in the lead-up season. Queensland and the Northern Territory weren't far behind. And when Summer 2020 finally arrived, the bar chart lights up red&mdash;the season peaking exactly when and where the climate had been building toward it all year.
+    </p>
+
+    <div class="two-col chart-group-top">
+      <div class="chart-card">
+        <div id="chart-scatter"></div>
+        <p class="caption">Temperature anomaly vs fire hotspots by state. Point size = rainfall deficit.</p>
+      </div>
+      <div class="chart-card">
+        <div id="chart-bar-grouped"></div>
+        <p class="caption">Hotspots by state and season. Click the legend to filter.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>
+      <span class="footer-label">Data sources</span>
+      <a href="https://www.abs.gov.au/ausstats/abs@.nsf/mf/1270.0.55.001" target="_blank" rel="noopener">ABS Australian Statistical Geography Standard, state boundaries cat. no. 1270.0.55.001</a><br>
+      <a href="https://www.bom.gov.au/climate/current/statement_archives.shtml?region=aus&period=season" target="_blank" rel="noopener">Australian Bureau of Meteorology, seasonal climate statements archive</a><br>
+      <a href="http://firms.modaps.eosdis.nasa.gov" target="_blank" rel="noopener">NASA FIRMS MODIS Collection 6.1 fire archive, Jun 2019 &ndash; Mar 2020</a><br>
+      <a href="https://en.wikipedia.org/wiki/2019%E2%80%9320_Australian_bushfire_season" target="_blank" rel="noopener">Wikipedia, 2019&ndash;20 Australian bushfire season</a>
+    </p>
+    <p><span class="footer-label">AI acknowledgement</span><a href="https://claude.ai" target="_blank" rel="noopener">Visualisation coding assisted by Claude (Anthropic)</a></p>
+    <p><span class="footer-label">Author</span>Chenry Tanoto &middot; FIT2179 Data Visualisation &middot; Monash University &middot; 2026</p>
+  </footer>
+
+  <script>
+    const opts = {actions: false, renderer: "svg"};
+
+    vegaEmbed("#chart-map-hotspots", "charts/map_hotspots.json", opts).catch(console.error);
+    vegaEmbed("#chart-bar-state", "charts/bar_state_totals.json", opts).catch(console.error);
+    vegaEmbed("#chart-map-area", "charts/map_area_burned.json", opts).catch(console.error);
+    vegaEmbed("#chart-dual-weekly", "charts/dual_axis_weekly.json", opts).catch(console.error);
+    vegaEmbed("#chart-heatmap-monthly", "charts/heatmap_monthly_state.json", opts).catch(console.error);
+    vegaEmbed("#chart-stacked-daynight", "charts/stacked_bar_daynight.json", opts).catch(console.error);
+    vegaEmbed("#chart-heatmap-temp", "charts/heatmap_temp.json", opts).catch(console.error);
+    vegaEmbed("#chart-bar-rainfall", "charts/bar_rainfall.json", opts).catch(console.error);
+    vegaEmbed("#chart-dumbbell", "charts/dumbbell_temp.json", opts).catch(console.error);
+    vegaEmbed("#chart-scatter", "charts/scatter_climate_fire.json", opts).catch(console.error);
+    vegaEmbed("#chart-bar-grouped", "charts/bar_grouped_season.json", opts).catch(console.error);
+  </script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+month,state_name,count,mean_frp
+Aug,New South Wales,1904,28.3
+Aug,Northern Territory,8405,47.1
+Aug,Queensland,3765,39.3
+Aug,South Australia,31,30.4
+Aug,Tasmania,14,15.4
+Aug,Victoria,14,20.9
+Aug,Western Australia,899,43.3
+Dec,New South Wales,36771,96.1
+Dec,Northern Territory,6252,70.7
+Dec,Queensland,15230,62.6
+Dec,South Australia,1575,169.7
+Dec,Tasmania,205,81.0
+Dec,Victoria,2089,188.7
+Dec,Western Australia,13731,137.0
+Feb,New South Wales,3551,135.2
+Feb,Northern Territory,109,49.9
+Feb,Queensland,1293,34.7
+Feb,South Australia,13,43.7
+Feb,Tasmania,10,20.1
+Feb,Victoria,25,28.9
+Feb,Western Australia,1266,174.1
+Jan,New South Wales,21438,105.6
+Jan,Northern Territory,413,73.3
+Jan,Queensland,2941,44.4
+Jan,South Australia,1253,175.1
+Jan,Tasmania,368,91.0
+Jan,Victoria,2381,65.7
+Jan,Western Australia,5267,253.6
+Jul,New South Wales,1185,20.3
+Jul,Northern Territory,12861,44.1
+Jul,Queensland,4265,33.0
+Jul,South Australia,41,29.7
+Jul,Victoria,45,103.6
+Jul,Western Australia,2094,48.8
+Jun,New South Wales,1134,23.9
+Jun,Northern Territory,11031,34.5
+Jun,Queensland,2500,29.3
+Jun,South Australia,83,36.9
+Jun,Tasmania,53,56.1
+Jun,Victoria,64,29.7
+Jun,Western Australia,2172,38.4
+Mar,New South Wales,797,37.8
+Mar,Northern Territory,252,35.8
+Mar,Queensland,768,30.6
+Mar,South Australia,111,38.8
+Mar,Tasmania,177,100.5
+Mar,Victoria,275,67.6
+Mar,Western Australia,1374,42.5
+Nov,New South Wales,23117,106.7
+Nov,Northern Territory,2884,58.0
+Nov,Queensland,6973,57.8
+Nov,South Australia,102,66.1
+Nov,Tasmania,45,61.8
+Nov,Victoria,98,150.7
+Nov,Western Australia,10274,104.1
+Oct,New South Wales,3077,74.1
+Oct,Northern Territory,10793,80.8
+Oct,Queensland,5047,49.2
+Oct,South Australia,1247,101.2
+Oct,Tasmania,86,45.7
+Oct,Victoria,26,15.7
+Oct,Western Australia,6709,107.7
+Sep,New South Wales,3363,67.5
+Sep,Northern Territory,6264,63.1
+Sep,Queensland,6374,57.7
+Sep,South Australia,148,51.1
+Sep,Tasmania,99,38.1
+Sep,Victoria,18,38.7
+Sep,Western Australia,1982,67.5
+Jul,Tasmania,0,0.0

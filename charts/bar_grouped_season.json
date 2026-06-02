@@ -1,0 +1,121 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Grouped bar chart of fire hotspots by state and season",
+  "width": "container",
+  "height": 300,
+  "data": {
+    "url": "data/fire_monthly_state.csv"
+  },
+  "transform": [
+    {
+      "calculate": "indexof(['Jun','Jul','Aug'], datum.month) >= 0 ? 'Winter 2019' : indexof(['Sep','Oct','Nov'], datum.month) >= 0 ? 'Spring 2019' : indexof(['Dec','Jan','Feb'], datum.month) >= 0 ? 'Summer 2020' : 'Autumn 2020'",
+      "as": "season"
+    },
+    {
+      "aggregate": [
+        {
+          "op": "sum",
+          "field": "count",
+          "as": "count"
+        }
+      ],
+      "groupby": [
+        "state_name",
+        "season"
+      ]
+    }
+  ],
+  "params": [
+    {
+      "name": "seasonSelect",
+      "select": {
+        "type": "point",
+        "fields": [
+          "season"
+        ]
+      },
+      "bind": "legend"
+    }
+  ],
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "state_name",
+      "type": "nominal",
+      "axis": {
+        "title": null,
+        "labelAngle": 0,
+        "labelExpr": "datum.value === 'New South Wales' ? 'NSW' : datum.value === 'Victoria' ? 'VIC' : datum.value === 'Queensland' ? 'QLD' : datum.value === 'South Australia' ? 'SA' : datum.value === 'Western Australia' ? 'WA' : datum.value === 'Tasmania' ? 'TAS' : datum.value === 'Northern Territory' ? 'NT' : datum.value"
+      }
+    },
+    "xOffset": {
+      "field": "season",
+      "type": "nominal",
+      "sort": [
+        "Winter 2019",
+        "Spring 2019",
+        "Summer 2020",
+        "Autumn 2020"
+      ]
+    },
+    "y": {
+      "field": "count",
+      "type": "quantitative",
+      "axis": {
+        "title": "Fire hotspot count"
+      }
+    },
+    "color": {
+      "field": "season",
+      "type": "nominal",
+      "scale": {
+        "domain": ["Winter 2019", "Spring 2019", "Summer 2020", "Autumn 2020"],
+        "range": ["#a8c8e8", "#fde68a", "#f87171", "#fdba74"]
+      },
+      "sort": [
+        "Winter 2019",
+        "Spring 2019",
+        "Summer 2020",
+        "Autumn 2020"
+      ],
+      "legend": {
+        "title": "Season"
+      }
+    },
+    "opacity": {
+      "condition": {
+        "param": "seasonSelect",
+        "value": 1
+      },
+      "value": 0.2
+    },
+    "tooltip": [
+      {
+        "field": "state_name",
+        "type": "nominal",
+        "title": "State"
+      },
+      {
+        "field": "season",
+        "type": "nominal",
+        "title": "Season"
+      },
+      {
+        "field": "count",
+        "type": "quantitative",
+        "title": "Hotspot count"
+      }
+    ]
+  },
+  "config": {
+    "font": "Inter, sans-serif",
+    "axis":   { "labelFont": "Inter, sans-serif", "titleFont": "Inter, sans-serif", "labelColor": "#65605a", "titleColor": "#3a3530" },
+    "legend": { "labelFont": "Inter, sans-serif", "titleFont": "Inter, sans-serif" },
+    "header": { "labelFont": "Inter, sans-serif" },
+    "view":   { "stroke": null }
+  },
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  }
+}

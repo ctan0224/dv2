@@ -1,0 +1,176 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Dual-axis: weekly fire detections (bars) and average intensity (line)",
+  "width": "container",
+  "height": 300,
+  "data": {
+    "url": "data/fire_weekly.csv"
+  },
+  "resolve": {
+    "scale": {
+      "y": "independent"
+    }
+  },
+  "layer": [
+    {
+      "data": {
+        "values": [
+          {
+            "start": "2019-11-18",
+            "end": "2020-01-13",
+            "label": "Peak season"
+          }
+        ]
+      },
+      "mark": {
+        "type": "rect",
+        "opacity": 0.1,
+        "color": "#D7301F"
+      },
+      "encoding": {
+        "x": {
+          "field": "start",
+          "type": "temporal"
+        },
+        "x2": {
+          "field": "end"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "date": "2019-11-18",
+            "label": "Peak season"
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 4,
+        "fontSize": 11,
+        "fontStyle": "italic",
+        "color": "#D7301F"
+      },
+      "encoding": {
+        "x": {
+          "field": "date",
+          "type": "temporal"
+        },
+        "y": {
+          "value": 8
+        },
+        "text": {
+          "field": "label",
+          "type": "nominal"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "bar",
+        "color": "#C46B1F",
+        "opacity": 0.85
+      },
+      "encoding": {
+        "x": {
+          "field": "week",
+          "type": "temporal",
+          "axis": {
+            "title": null,
+            "format": "%b %Y",
+            "labelAngle": -35,
+            "tickCount": "month"
+          }
+        },
+        "y": {
+          "field": "count",
+          "type": "quantitative",
+          "axis": {
+            "title": "Detections"
+          }
+        },
+        "tooltip": [
+          {
+            "field": "week",
+            "type": "temporal",
+            "title": "Week",
+            "format": "%d %b %Y"
+          },
+          {
+            "field": "count",
+            "type": "quantitative",
+            "title": "Detections",
+            "format": ","
+          },
+          {
+            "field": "mean_frp",
+            "type": "quantitative",
+            "title": "Avg intensity (MW)",
+            "format": ".1f"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "line",
+        "color": "#D7301F",
+        "strokeWidth": 2,
+        "point": {
+          "filled": true,
+          "fill": "#D7301F",
+          "size": 30
+        }
+      },
+      "encoding": {
+        "x": {
+          "field": "week",
+          "type": "temporal"
+        },
+        "y": {
+          "field": "mean_frp",
+          "type": "quantitative",
+          "axis": {
+            "title": "Avg intensity (MW)",
+            "orient": "right",
+            "format": ".0f"
+          }
+        },
+        "tooltip": [
+          {
+            "field": "week",
+            "type": "temporal",
+            "title": "Week",
+            "format": "%d %b %Y"
+          },
+          {
+            "field": "count",
+            "type": "quantitative",
+            "title": "Detections",
+            "format": ","
+          },
+          {
+            "field": "mean_frp",
+            "type": "quantitative",
+            "title": "Avg intensity (MW)",
+            "format": ".1f"
+          }
+        ]
+      }
+    }
+  ],
+  "config": {
+    "font": "Inter, sans-serif",
+    "axis":   { "labelFont": "Inter, sans-serif", "titleFont": "Inter, sans-serif", "labelColor": "#65605a", "titleColor": "#3a3530" },
+    "legend": { "labelFont": "Inter, sans-serif", "titleFont": "Inter, sans-serif" },
+    "header": { "labelFont": "Inter, sans-serif" },
+    "view":   { "stroke": null }
+  },
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  }
+}

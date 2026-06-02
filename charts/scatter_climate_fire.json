@@ -1,0 +1,124 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Scatter plot: Spring 2019 temperature anomaly vs total fire hotspots",
+  "width": "container",
+  "height": 300,
+  "data": {
+    "url": "data/fire_climate_joined.csv"
+  },
+  "transform": [
+    {
+      "calculate": "abs(datum.rainfall_departure_percent)",
+      "as": "rainfall_deficit"
+    }
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "point",
+        "filled": true
+      },
+      "encoding": {
+        "x": {
+          "field": "mean_temp_anomaly",
+          "type": "quantitative",
+          "axis": {
+            "title": "Mean temp anomaly - Spring 2019 (\u00b0C)"
+          }
+        },
+        "y": {
+          "field": "count",
+          "type": "quantitative",
+          "axis": {
+            "title": "Total fire hotspots"
+          }
+        },
+        "size": {
+          "field": "rainfall_deficit",
+          "type": "quantitative",
+          "scale": {
+            "range": [
+              60,
+              400
+            ]
+          },
+          "legend": {
+            "title": "Rainfall deficit (%)"
+          }
+        },
+        "color": {
+          "field": "state_name",
+          "type": "nominal",
+          "scale": {
+            "scheme": "tableau10"
+          },
+          "legend": {
+            "title": "State",
+            "labelExpr": "datum.value === 'New South Wales' ? 'NSW' : datum.value === 'Victoria' ? 'VIC' : datum.value === 'Queensland' ? 'QLD' : datum.value === 'South Australia' ? 'SA' : datum.value === 'Western Australia' ? 'WA' : datum.value === 'Tasmania' ? 'TAS' : datum.value === 'Northern Territory' ? 'NT' : datum.value"
+          }
+        },
+        "tooltip": [
+          {
+            "field": "state_name",
+            "type": "nominal",
+            "title": "State"
+          },
+          {
+            "field": "mean_temp_anomaly",
+            "type": "quantitative",
+            "title": "Temp anomaly (\u00b0C)",
+            "format": ".2f"
+          },
+          {
+            "field": "count",
+            "type": "quantitative",
+            "title": "Total hotspots"
+          },
+          {
+            "field": "rainfall_departure_percent",
+            "type": "quantitative",
+            "title": "Rainfall departure (%)",
+            "format": ".0f"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "line",
+        "color": "#888",
+        "strokeDash": [
+          4,
+          3
+        ]
+      },
+      "transform": [
+        {
+          "regression": "count",
+          "on": "mean_temp_anomaly"
+        }
+      ],
+      "encoding": {
+        "x": {
+          "field": "mean_temp_anomaly",
+          "type": "quantitative"
+        },
+        "y": {
+          "field": "count",
+          "type": "quantitative"
+        }
+      }
+    }
+  ],
+  "config": {
+    "font": "Inter, sans-serif",
+    "axis":   { "labelFont": "Inter, sans-serif", "titleFont": "Inter, sans-serif", "labelColor": "#65605a", "titleColor": "#3a3530" },
+    "legend": { "labelFont": "Inter, sans-serif", "titleFont": "Inter, sans-serif" },
+    "header": { "labelFont": "Inter, sans-serif" },
+    "view":   { "stroke": null }
+  },
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  }
+}

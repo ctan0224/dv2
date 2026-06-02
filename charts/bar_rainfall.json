@@ -1,0 +1,105 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Rainfall departure from seasonal average by state",
+  "width": "container",
+  "height": 300,
+  "data": {
+    "url": "data/climate_clean.csv"
+  },
+  "params": [
+    {
+      "name": "seasonFilter",
+      "value": "Spring 2019",
+      "bind": {
+        "input": "select",
+        "options": [
+          "Winter 2019",
+          "Spring 2019",
+          "Summer 2020",
+          "Autumn 2020"
+        ],
+        "name": "Season: "
+      }
+    }
+  ],
+  "transform": [
+    {
+      "filter": "datum.season == seasonFilter"
+    }
+  ],
+  "layer": [
+    {
+      "mark": "bar",
+      "encoding": {
+        "y": {
+          "field": "state",
+          "type": "nominal",
+          "sort": {
+            "field": "rainfall_departure_percent",
+            "order": "ascending"
+          },
+          "axis": {
+            "title": null,
+            "labelExpr": "datum.value === 'New South Wales' ? 'NSW' : datum.value === 'Northern Territory' ? 'NT' : datum.value === 'Queensland' ? 'QLD' : datum.value === 'South Australia' ? 'SA' : datum.value === 'Tasmania' ? 'TAS' : datum.value === 'Victoria' ? 'VIC' : datum.value === 'Western Australia' ? 'WA' : datum.value"
+          }
+        },
+        "x": {
+          "field": "rainfall_departure_percent",
+          "type": "quantitative",
+          "axis": {
+            "title": "Rainfall departure (%)"
+          }
+        },
+        "color": {
+          "condition": {
+            "test": "datum.rainfall_departure_percent < 0",
+            "value": "#D7301F"
+          },
+          "value": "#2166AC"
+        },
+        "tooltip": [
+          {
+            "field": "state",
+            "type": "nominal",
+            "title": "State"
+          },
+          {
+            "field": "rainfall_departure_percent",
+            "type": "quantitative",
+            "title": "Rainfall departure (%)",
+            "format": ".1f"
+          },
+          {
+            "field": "rainfall_avg_mm",
+            "type": "quantitative",
+            "title": "Avg rainfall (mm)",
+            "format": ".1f"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "rule",
+        "color": "#333",
+        "strokeWidth": 1
+      },
+      "encoding": {
+        "x": {
+          "datum": 0
+        }
+      }
+    }
+  ],
+  "config": {
+    "font": "Inter, sans-serif",
+    "axis":   { "labelFont": "Inter, sans-serif", "titleFont": "Inter, sans-serif", "labelColor": "#65605a", "titleColor": "#3a3530" },
+    "legend": { "labelFont": "Inter, sans-serif", "titleFont": "Inter, sans-serif" },
+    "header": { "labelFont": "Inter, sans-serif" },
+    "view":   { "stroke": null }
+  },
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  }
+}

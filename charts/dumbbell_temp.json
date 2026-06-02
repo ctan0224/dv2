@@ -1,0 +1,185 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Dumbbell chart of min and max temperature anomaly by state and season",
+  "width": "container",
+  "height": 300,
+  "data": {
+    "url": "data/climate_clean.csv"
+  },
+  "params": [
+    {
+      "name": "seasonFilter",
+      "value": "Spring 2019",
+      "bind": {
+        "input": "select",
+        "options": [
+          "Winter 2019",
+          "Spring 2019",
+          "Summer 2020",
+          "Autumn 2020"
+        ],
+        "name": "Season: "
+      }
+    }
+  ],
+  "transform": [
+    {
+      "filter": "datum.season == seasonFilter"
+    },
+    {
+      "calculate": "datum.max_temp_anomaly - datum.min_temp_anomaly",
+      "as": "range"
+    }
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "rule",
+        "color": "#ccc",
+        "strokeWidth": 2
+      },
+      "encoding": {
+        "y": {
+          "field": "state",
+          "type": "nominal",
+          "sort": "ascending",
+          "axis": {
+            "title": null
+          }
+        },
+        "x": {
+          "field": "min_temp_anomaly",
+          "type": "quantitative",
+          "scale": {
+            "domain": [
+              -1,
+              4
+            ]
+          },
+          "axis": {
+            "title": "Temperature anomaly (\u00b0C)"
+          }
+        },
+        "x2": {
+          "field": "max_temp_anomaly"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 80
+      },
+      "encoding": {
+        "y": {
+          "field": "state",
+          "type": "nominal",
+          "sort": "ascending"
+        },
+        "x": {
+          "field": "min_temp_anomaly",
+          "type": "quantitative"
+        },
+        "color": {
+          "value": "#2166AC"
+        },
+        "tooltip": [
+          {
+            "field": "state",
+            "type": "nominal",
+            "title": "State"
+          },
+          {
+            "field": "min_temp_anomaly",
+            "type": "quantitative",
+            "title": "Min anomaly (\u00b0C)",
+            "format": ".2f"
+          },
+          {
+            "field": "max_temp_anomaly",
+            "type": "quantitative",
+            "title": "Max anomaly (\u00b0C)",
+            "format": ".2f"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 80
+      },
+      "encoding": {
+        "y": {
+          "field": "state",
+          "type": "nominal",
+          "sort": "ascending"
+        },
+        "x": {
+          "field": "max_temp_anomaly",
+          "type": "quantitative"
+        },
+        "color": {
+          "value": "#D7301F"
+        },
+        "tooltip": [
+          {
+            "field": "state",
+            "type": "nominal",
+            "title": "State"
+          },
+          {
+            "field": "min_temp_anomaly",
+            "type": "quantitative",
+            "title": "Min anomaly (\u00b0C)",
+            "format": ".2f"
+          },
+          {
+            "field": "max_temp_anomaly",
+            "type": "quantitative",
+            "title": "Max anomaly (\u00b0C)",
+            "format": ".2f"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 8,
+        "fontSize": 11,
+        "color": "#555"
+      },
+      "encoding": {
+        "y": {
+          "field": "state",
+          "type": "nominal",
+          "sort": "ascending"
+        },
+        "x": {
+          "field": "max_temp_anomaly",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "range",
+          "type": "quantitative",
+          "format": ".2f"
+        }
+      }
+    }
+  ],
+  "config": {
+    "font": "Inter, sans-serif",
+    "axis":   { "labelFont": "Inter, sans-serif", "titleFont": "Inter, sans-serif", "labelColor": "#65605a", "titleColor": "#3a3530" },
+    "legend": { "labelFont": "Inter, sans-serif", "titleFont": "Inter, sans-serif" },
+    "header": { "labelFont": "Inter, sans-serif" },
+    "view":   { "stroke": null }
+  },
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  }
+}
